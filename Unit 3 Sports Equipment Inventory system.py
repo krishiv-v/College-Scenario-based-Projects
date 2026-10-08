@@ -1,35 +1,25 @@
 import csv
 import sys
 
-if len(sys.argv) != 2:
-    print("Usage: python sports.py <filename>")
-    sys.exit()
-
 filename = sys.argv[1]
 
-try:
-    with open(filename, "r", newline="") as file:
-        reader = csv.DictReader(file)
+with open(filename, "r") as file:
+    reader = csv.DictReader(file)
+    records = list(reader)
 
-        print("\nSports Equipment Inventory:")
-        records = list(reader)
+print("Sports Equipment Inventory:")
 
-        for item in records:
-            print(item)
+for record in records:
+    print(record)
 
-        equipment_id = input("\nEnter Equipment ID to search: ")
+equipment_id = "S103"
 
-        found = False
+print("\nSearching for Equipment ID:", equipment_id)
 
-        for item in records:
-            if item["Equipment ID"] == equipment_id:
-                print("\nEquipment Found:")
-                print(item)
-                found = True
-                break
-
-        if not found:
-            print("Equipment not found.")
-
-except FileNotFoundError:
-    print("File not found.")
+for record in records:
+    if record["Equipment ID"] == equipment_id:
+        print("Equipment Found:")
+        print(record)
+        break
+else:
+    print("Equipment not found.")
